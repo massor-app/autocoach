@@ -16,12 +16,15 @@ You need the Claude desktop app on a paid plan, with **Google Calendar** connect
 
 Then just ask:
 
-- "Sync with my calendar"
-- "Give me an overview of my clients"
-- "How many sessions does Sam have left?"
-- "Which pack did I sell Priya?"
+- "Update my sessions": checks your calendar and asks you to confirm what happened. Nothing counts until you say yes, and anything you don't answer waits for next time.
+- "Give me an overview of my clients" / "Who's running low?"
+- "How many sessions does Sam have left?" / "Which pack did I sell Priya?"
+- "Sam came in today" (a session that isn't on your calendar)
 - "Sam bought another 10-pack"
 - "Sam no-showed Tuesday, don't charge it"
+- "Give Sam one extra session" / "Extend Priya's pack two weeks" / "That pack was for Samantha, not Sam"
+
+To get updates later, run `/plugin marketplace update autocoach` in the Code tab.
 
 **Using regular Claude chat or the phone app?** Add a custom connector with the URL `https://autocoach.justinfan827.workers.dev/mcp` and the same invite code. The tools work there too; only the `/setup-autocoach` and `/autocoach` shortcuts are specific to Claude Code.
 

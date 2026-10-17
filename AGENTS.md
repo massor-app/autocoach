@@ -14,7 +14,12 @@ The server (Cloudflare Worker, Durable Object, MCP tools) lives in the private r
 - `plugins/autocoach/skills/setup-autocoach/`: onboarding.
 - `plugins/autocoach/skills/autocoach/`: daily use and calendar sync.
 
-The skills call the server's MCP tools by name (`get_overview`, `propose_sessions`, `confirm_sessions`, and so on). If a tool changes in `autocoach-server`, update the skills to match.
+The skills call the server's MCP tools by name (`get_overview`, `propose_sessions`, `confirm_sessions`, and so on). If a tool changes in `autocoach-server`, update the skills to match. Before releasing, check that:
+
+- every tool, parameter and response field the skills mention exists in the server's `tools/list` schemas and real responses on staging
+- every server tool is covered by at least one skill
+- the README's example requests still match what the tools can do
+- `version` in `plugin.json` is bumped
 
 ## Testing policy: ZERO unit tests, end-to-end only
 
