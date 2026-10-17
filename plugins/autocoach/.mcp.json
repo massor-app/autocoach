@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "autocoach": {
+      "type": "http",
+      "url": "https://autocoach.justinfan827.workers.dev/mcp"
+    }
+  }
+}

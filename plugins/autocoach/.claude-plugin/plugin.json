@@ -1,0 +1,7 @@
+{
+  "name": "autocoach",
+  "version": "0.1.0",
+  "description": "Track your clients' session packs and sessions left. Syncs completed sessions from your Google Calendar after you confirm them.",
+  "author": { "name": "Massor", "url": "https://massor.app" },
+  "keywords": ["fitness", "personal-training", "clients", "sessions", "calendar"]
+}

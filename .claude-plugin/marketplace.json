@@ -1,0 +1,13 @@
+{
+  "name": "autocoach",
+  "owner": { "name": "Massor", "url": "https://massor.app" },
+  "metadata": { "description": "autocoach: track clients, session packs, and sessions left from Claude." },
+  "plugins": [
+    {
+      "name": "autocoach",
+      "source": "./plugins/autocoach",
+      "description": "Track your clients' session packs and sessions left, synced from your Google Calendar.",
+      "category": "productivity"
+    }
+  ]
+}
