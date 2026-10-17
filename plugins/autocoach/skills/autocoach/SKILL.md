@@ -5,7 +5,12 @@ description: Answer a coach's questions about their clients' session packs and s
 
 # autocoach
 
-All numbers come from the autocoach tools. Never calculate or estimate a balance, pace, run-out date, or which pack paid for a session yourself. Every write tool takes `confirmed: true`, and you only pass it after the coach has said yes to that exact change in this conversation. The one exception is `propose_sessions`: it saves sessions as waiting, which changes no balance.
+All numbers come from the autocoach tools. Never calculate or estimate a balance, pace, run-out date, or which pack paid for a session yourself.
+
+**When to ask first.** Every write tool takes `confirmed: true`.
+- **A direct, complete instruction from the coach counts as approval.** For example: "Priya bought a 10-pack today", "Sam no-showed on the 8th, don't charge it", "add Mike Davis, mike.davis@example.com". Do it, then say what you saved.
+- **Ask first when you inferred anything:** calendar matches, which of two clients, a date or time the coach didn't give, a nickname you came up with, or any change the coach didn't explicitly ask for.
+- The one exception is `propose_sessions`: it saves sessions as waiting, which changes no balance, so it needs no approval.
 
 Start by calling `get_overview`:
 - **A `setup` block** means onboarding isn't finished. Say what's missing and offer to run the `setup-autocoach` skill.
@@ -62,7 +67,7 @@ If the Google Calendar connector isn't available, say so: the coach needs to con
 
 ## Changes
 
-Confirm each change before calling the tool. After any change, show the client's new sessions left.
+Follow "When to ask first" above: do direct instructions right away, and ask about anything you had to infer. After any change, show the client's new sessions left.
 
 - **A session that isn't on the calendar** ("Sam came in today", "Priya late-cancelled, charge her"): use `add_session` with a `note`. If it refuses because the client already has a session that day, ask the coach. Pass `allow_duplicate: true` only if it really was a second session.
 - **A session that shouldn't count** (a no-show they don't charge for, or a mistake): find it in `get_client` → `recent_sessions`, then `void_sessions` with a note. This gives the credit back. `confirm_sessions` undoes it.
