@@ -6,11 +6,9 @@ Track your clients' session packs and sessions left from Claude. autocoach reads
 
 You need the Claude desktop app on a paid plan, with **Google Calendar** connected (claude.ai → Settings → Connectors).
 
-1. In the desktop app's **Code** tab, run:
-   ```
-   /plugin marketplace add massor-app/autocoach
-   /plugin install autocoach@autocoach
-   ```
+1. Install the plugin:
+   - **Desktop app:** open Settings → **Plugins**, click **+ Add**, add the marketplace `massor-app/autocoach`, then install **autocoach**.
+   - **Terminal:** run `claude plugin marketplace add massor-app/autocoach`, then `claude plugin install autocoach@autocoach`.
 2. Start a new chat. Type `/mcp` in it, pick **autocoach**, choose **Sign in**, and enter the invite code you were given on the page that opens. (`/setup-autocoach` will walk you through this too.)
 3. Run `/setup-autocoach`. It walks you through choosing your session calendar, your clients, the packs you sell, and everyone's current sessions left.
 
