@@ -14,8 +14,18 @@ You are onboarding a fitness coach. Keep it conversational: one topic at a time,
 
 ## 1. Check the connections
 
-- **autocoach tools** (`get_overview` and the rest). If they're missing or ask for sign-in, tell the coach to run `/mcp`, choose **autocoach**, and enter the invite code they were given. Then continue.
-- **Google Calendar connector** (tools that list calendars and events). If it's missing, tell the coach to connect Google Calendar under Settings → Connectors on claude.ai, then restart Claude. They can finish setup without it, but calendar syncs won't work until it's connected.
+- **autocoach tools** (`get_overview` and the rest). If they aren't available, or you're told autocoach needs authentication, walk the coach through signing in. You can't sign in for them, but you can make it easy. Send these steps and wait:
+  1. "Type **/mcp** right here in this chat and press Enter." This opens the list of connected servers, in both the desktop app and the terminal. Never send them to a separate terminal.
+  2. "Pick **autocoach** and choose **Sign in** (or **Authenticate**)."
+  3. "A browser page opens. Enter the invite code you were given and click **Connect**. When it says you're connected, close the tab."
+  4. "Come back here and say **done**."
+
+  When they say done, call `get_overview` to check. If it still fails, ask what they saw:
+  - an "invite code didn't work" message means the code was mistyped
+  - no browser page means they should try `/mcp` → autocoach → Sign in again
+
+  While they're signing in, you can already do step 2 (list their calendars) so no time is lost. Just don't save anything until autocoach works.
+- **Google Calendar connector** (tools that list calendars and events). If it's missing, tell the coach to connect Google Calendar under Settings → Connectors on claude.ai, then start a new chat. They can finish setup without it, but calendar syncs won't work until it's connected.
 
 Call `get_overview`. Its `setup` block lists what's `missing` and the `next_step`. Skip anything that's already done and say so. Re-running setup must never duplicate anything: `add_client` and `add_pack_type` refuse duplicates, and if one does, use the existing record.
 

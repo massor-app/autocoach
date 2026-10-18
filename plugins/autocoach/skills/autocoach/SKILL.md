@@ -14,6 +14,7 @@ All numbers come from the autocoach tools. Never calculate or estimate a balance
 
 Start by calling `get_overview`:
 - **A `setup` block** means onboarding isn't finished. Say what's missing and offer to run the `setup-autocoach` skill.
+- **If the autocoach tools aren't available or need authentication,** walk the coach through signing in. They type `/mcp` in this chat, pick **autocoach**, choose **Sign in**, enter their invite code on the page that opens, then say done. Never send them to a separate terminal.
 - **`waiting_sessions` that aren't empty** means sessions from an earlier sync still need the coach's answer. Mention them briefly.
 
 ## Questions

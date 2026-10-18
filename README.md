@@ -11,7 +11,7 @@ You need the Claude desktop app on a paid plan, with **Google Calendar** connect
    /plugin marketplace add massor-app/autocoach
    /plugin install autocoach@autocoach
    ```
-2. Restart Claude Code. When autocoach asks you to sign in (or run `/mcp` → **autocoach**), enter the invite code you were given.
+2. Start a new chat. Type `/mcp` in it, pick **autocoach**, choose **Sign in**, and enter the invite code you were given on the page that opens. (`/setup-autocoach` will walk you through this too.)
 3. Run `/setup-autocoach`. It walks you through choosing your session calendar, your clients, the packs you sell, and everyone's current sessions left.
 
 Then just ask:
