@@ -12,7 +12,7 @@ All numbers come from the autocoach tools. Never calculate or estimate a balance
 - **Ask first when you inferred anything:** calendar matches, which of two clients, a date or time the coach didn't give, a nickname you came up with, or any change the coach didn't explicitly ask for.
 - The one exception is `propose_sessions`: it saves sessions as waiting, which changes no balance, so it needs no approval.
 
-Start by calling `get_overview`:
+Start by calling `get_overview`. Address the coach by `coach_name` when it's set, but keep it natural: a greeting at the start, not in every message.
 - **A `setup` block** means onboarding isn't finished. Say what's missing and offer to run the `setup-autocoach` skill.
 - **If the autocoach tools aren't available or need authentication,** walk the coach through signing in. They type `/mcp` in this chat, pick **autocoach**, choose **Sign in**, enter their invite code on the page that opens, then say done. Never send them to a separate terminal.
 - **`waiting_sessions` that aren't empty** means sessions from an earlier sync still need the coach's answer. Mention them briefly.
