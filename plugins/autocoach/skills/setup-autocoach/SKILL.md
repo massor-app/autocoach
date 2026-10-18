@@ -31,7 +31,7 @@ The first thing the coach sees is a welcome message. Before it, don't call any t
 > 3. Add your clients
 > 4. Add the packs you sell
 > 5. Enter everyone's current sessions left
-> 6. Check everything and finish
+> 6. Bring in your past sessions, check everything and finish
 >
 > Nothing is saved without your OK, and you can stop anytime and pick up where you left off by running `/setup-autocoach` again.
 >
@@ -93,11 +93,23 @@ Record each one with `sell_pack`, passing `sold_on` (if known) and `sessions_lef
 
 ## Step 6 of 6: Check and finish
 
-Show a summary from `get_overview`: the calendar(s), the clients, the packs, and each client's sessions left. When the coach confirms, call `update_settings` with `onboarded: true`.
+**Past sessions as history.** Offer: "Want me to bring in your past sessions from the calendar as history? They won't change anyone's balance. They just let me show when each client last trained and how often they come in, so I can warn you before someone runs out."
 
-From that moment, calendar syncs only look at sessions after it, because everything before is already in the opening balances. Don't sync the calendar before this step.
+If they say yes:
+1. Take the sessions from the last 90 days of the session calendar (reuse the scan from step 3 if you did one), matched to clients the same way a sync does (see the autocoach skill).
+2. Call `propose_sessions` with them.
+3. Show the coach the list, briefly. They're all history, so it's a yes/no on the list: "did these happen?" Leave out anything that doesn't look like a session.
+4. Call `confirm_sessions` with the ones the coach says happened.
 
-Finally, congratulate them by name, and tell them how to use it day to day:
-- **"Update my sessions":** I'll check your calendar and ask you to confirm what happened
-- **"How many sessions does Sam have left?"**, **"Give me an overview of my clients"**
-- **"Sam bought another 10-pack"**, **"Sam no-showed Tuesday, don't charge it"**, **"Sam came in today"**
+Sessions dated before onboarding never use a credit: the server marks them `credit: history`, and the balances you just entered stay exactly as they are. Check that `get_overview` shows the same sessions left as before.
+
+**Finish.** Show a summary from `get_overview`: the calendar, the clients, the packs, each client's sessions left, and their last session. When the coach confirms, call `update_settings` with `onboarded: true`. If they already told you to finish (for example "looks good, finish it" when approving the history), show the summary and finish in the same turn; don't ask twice. From that moment, new sessions use credits.
+
+**How to use it from here.** Congratulate them by name, then send this, adapting the wording but keeping every point:
+
+> You're all set! From now on, just talk to me about your clients in any chat:
+> - "Update my sessions": I'll check your calendar and ask you to confirm what happened
+> - "Who's running low?" / "How many sessions does Sam have left?"
+> - "Sam bought another 10-pack" / "Sam no-showed Tuesday, don't charge it" / "Sam came in today"
+>
+> **Tip:** in a new chat, start your first autocoach message with `/autocoach`, e.g. `/autocoach update my sessions`. That makes sure I load everything about your clients. You only need it once per chat; after that, just talk normally.

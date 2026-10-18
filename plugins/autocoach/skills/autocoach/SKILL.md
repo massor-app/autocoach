@@ -1,6 +1,6 @@
 ---
 name: autocoach
-description: Answer a coach's questions about their clients' session packs and sessions left, sync completed sessions from Google Calendar after the coach confirms them, record pack sales, and fix mistakes. Use for "give me an overview of my clients", "how many sessions does X have left", "which pack did I sell X", "sync my calendar", "update my sessions", "X bought another pack", "X no-showed", "X came in today", or any question about client credits.
+description: The coach's client tracker (autocoach). Answer questions about clients, their session packs and sessions left; sync completed sessions from Google Calendar after the coach confirms them; record pack sales; fix mistakes. Use for "give me an overview of my clients", "who's running low", "how many sessions does X have left", "which pack did I sell X", "sync my calendar", "update my sessions", "what happened this week", "X bought another pack", "X paid for more sessions", "X no-showed", "X came in today", "how do I use autocoach", or any question about clients, sessions, packs or credits.
 ---
 
 # autocoach
@@ -25,19 +25,20 @@ Start by calling `get_overview`. Address the coach by `coach_name` when it's set
     - `running_low`: with the projected run-out date
     - `out_of_sessions`
     - `expiring_unused`: how many credits will be lost, and when
+    - `expiring_soon`: a pack expires soon with credits left (no pace yet, so no projection). Mention it, but don't call it a loss
 
     Flagged clients are the ones the coach probably wants to contact.
 - **One client** ("how many does Sam have left", "what did I sell Sam"): call `get_client` with their name.
   - If `client` is null, look at `matches`: if there are several, ask which one; if there are none, say so.
   - Answer the question first, then give pack details and any flags.
   - Quote `sessions_left`. `paid_by` on a session can shift as past sessions or sales change.
-- **History** ("when did Sam last come in"): `get_client` → `recent_sessions`.
+- **History** ("when did Sam last come in"): `get_client` → `recent_sessions`. Each session's `credit` says whether it used one: `used` (and from which pack), `history` (before onboarding, already in the opening balance), `not_covered` (confirmed while out of credits), or `none` (waiting, dismissed or voided).
 
 ## Update my sessions (calendar sync)
 
 Only sync when the coach asks. Nothing counts until they confirm.
 
-1. **Range.** `get_overview` → `sync` gives `from`, `to`, `google_calendar_ids` and `timezone`. Use another range only if the coach names one ("check all of September"). Sessions before onboarding are already in the opening balances, and the server will say so.
+1. **Range.** `get_overview` → `sync` gives `from`, `to`, `google_calendar_ids` and `timezone`. Use another range only if the coach names one ("check all of September"). Sessions before onboarding are history: they never use a credit, because the opening balances already include them.
 2. **Read.** List events from `from` to `to` on each calendar, using the Google Calendar connector. Follow page tokens until you have every event. Expand recurring events into their occurrences, and use each occurrence's own event ID (never the recurring series ID).
 3. **Filter.** Drop all-day events, cancelled events, and events that haven't ended yet.
 4. **Match** each event to clients using `get_overview` → `clients[].match`, in this order:
@@ -49,7 +50,6 @@ Only sync when the coach asks. Nothing counts until they confirm.
 5. **Propose.** Call `propose_sessions` with every match. Each result says:
    - `new` or `already_waiting`: needs the coach's answer
    - `already_confirmed`, `already_dismissed`, `already_voided`: already answered; skip silently
-   - `before_onboarding`: already in the opening balance; skip
    - `possible_duplicate`: the client already has a session that day (maybe added by hand). Point it out.
    - `start_at_changed`: an answered event now has a different time. Tell the coach, since it may have been moved.
 6. **Ask.** Show one list of the sessions that need an answer (date, client, title), and flag anything uncertain:
