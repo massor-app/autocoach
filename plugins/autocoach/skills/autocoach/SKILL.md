@@ -46,7 +46,9 @@ Only sync when the coach asks. Nothing counts until they confirm.
    2. a client phone number appearing in the description or location (compare digits only)
    3. a client name or alias in the title (case-insensitive, whole word)
 
-   An event can match several clients (e.g. a partner session). Ignore a client on an event they declined. Drop events that match nobody: don't list them for the coach.
+   An event can match several clients (e.g. a partner session). Ignore a client on an event they declined.
+
+   **Ambiguous names are not "no match".** If a title only has a first name that several clients share ("Mike session" with Mike Chen and Mike Davis), or a name close to a client's, propose it for each candidate and list it under "Not sure" as "which one?". Never drop it. Drop only events with no plausible client at all (e.g. "Dentist", or an unknown attendee).
 5. **Propose.** Call `propose_sessions` with every match. Each result says:
    - `new` or `already_waiting`: needs the coach's answer
    - `already_confirmed`, `already_dismissed`, `already_voided`: already answered; skip silently
